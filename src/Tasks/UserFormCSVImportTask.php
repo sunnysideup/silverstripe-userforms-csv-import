@@ -79,7 +79,9 @@ class UserFormCSVImportTask extends BuildTask
                 if ($key === 'ID' || $key === 'Created') {
                     continue;
                 } else {
-                    $field = $form->Fields()->filter('Title', $key)->first();
+                    $field = $form->Fields()->filter('Title', $key)
+                        ->exclude('ClassName', 'SilverStripe\UserForms\Model\EditableFormField\EditableFieldGroup')
+                        ->first();
                     if (! $field) {
                         $this->output('Field not found: ' . $key);
                         continue;
